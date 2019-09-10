@@ -1,0 +1,15 @@
+- hosts:  
+    - stage_environment
+  gather_facts: true
+  become: true
+  roles:
+    - { 
+      role: double_push, 
+      URL: stage.url,
+      when: ansible_facts['os_family'] == 'Debian'
+    }
+    - { 
+      role: double_push, 
+      URL: prod.url,
+      when: ansible_facts['os_family'] == 'Debian'
+    }
