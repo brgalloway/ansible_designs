@@ -1,0 +1,24 @@
+# Ansible is idempotent you should be able to run it against 
+# both at the same time and will only update when the checksum doesn't checkout
+# or if the file is different. Ansible runs a checksum on files automatically
+
+# If using tower you could pass the checksum in as a variable before
+# each run 
+
+- hosts:
+    - stage_environment
+    - prod_environment
+  tasks:
+    - name: Get latest deploy script - Stage
+      get_url:
+        url: "{{ item }}"
+        dest: /root/java-deploy.sh
+        mode: '0755'
+        url_username: "{{ deploy_user }}"
+        url_password: '{{ deploy_pass }}'
+        validate_certs: no
+        checksum: "{{ checksum }}"
+        force: no
+      with_items:
+        - prod.URL
+        - stage.URL

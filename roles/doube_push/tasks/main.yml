@@ -1,0 +1,10 @@
+- name: Get latest deploy script - Stage
+  get_url:
+    url: "{{ URL }}"
+    dest: /root/java-deploy.sh
+    mode: '0755'
+    url_username: "{{ deploy_user }}"
+    url_password: '{{ deploy_pass }}'
+    validate_certs: no
+    checksum: "{{ checksum }}"
+    force: no

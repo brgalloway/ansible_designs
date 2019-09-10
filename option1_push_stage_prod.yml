@@ -1,0 +1,5 @@
+---
+- import_playbook: /path/to/file/foo.yaml
+   when: condition == true
+- import_playbook: /path/to/file/bar.yaml
+   when: condition == false

@@ -1,0 +1,14 @@
+- hosts:  
+    - stage_environment
+  gather_facts: true
+  become: true
+  roles:
+    - { role: double_push, URL: stage.url }
+    
+- hosts:  
+    - prod_environment
+  gather_facts: true
+  become: true
+  roles:
+    - { role: double_push, URL: prod.url }
+  

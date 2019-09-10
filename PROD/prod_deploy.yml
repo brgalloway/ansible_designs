@@ -1,0 +1,16 @@
+- hosts:
+    - prod_environment
+- name: Get latest deploy script - Prod
+  get_url:
+    url: "{{ URL }}"
+    dest: /root/java-deploy.sh
+    mode: '0755'
+    url_username: "{{ deploy_user }}"
+    url_password: '{{ deploy_pass }}'
+    validate_certs: no
+    checksum: "{{ checksum }}"
+    # This appears to have some amount of intelligence and does not download every time despite no mention of that in the documentation.
+    # Currently setting it to no since checksum is being used above.
+    force: no
+- import_playbook: stage_deploy.yml
+  when: VARIABLE not in group_names
